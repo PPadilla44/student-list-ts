@@ -1,38 +1,264 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: rgb(228, 228, 228);
 }
 
-.App-link {
-  color: #61dafb;
+.students {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-color: rgb(80, 85, 92) white;
 }
 
-@keyframes App-logo-spin {
-  from {
+.clearBtn {
+  border: none;
+  background: white;
+  border-radius: 10px;
+  padding: .15rem;
+  position: absolute;
+  right: 25px;
+  top: 10px;
+  box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: .1s;
+}
+
+.clearBtn:hover {
+  box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.50);
+  transition: .2s;
+}
+
+.clearBtn:active {
+  box-shadow: 0px 1px 1px 1px rgba(0,0,0, 0.5);
+  transition: .1s;
+}
+
+
+
+.students::-webkit-scrollbar {
+  background-color: white;
+  width: 10px;
+}
+
+.students::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  width: 10px;
+  box-shadow: inset 0 0 10px 10px rgb(80, 85, 92);
+}
+
+
+.studentList {
+  background-color: white;
+  box-shadow: 2px 1px 1px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  width: 70%;
+  height: 75%;
+  position: relative;
+  z-index: 2; 
+}
+
+
+
+
+.studentList::before,
+.studentList::after {
+  content: "";
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 2px 1px 1px 2px rgba(0,0,0,0.15);
+  opacity: 20%;
+}
+
+.studentList::before {
+  width: 101%;
+  height: 101%;
+  left: -.5%;
+  top: -.5%;
+  z-index: -1;
+}
+
+.studentList::after {
+  width: 102%;
+  height: 102%;
+  left: -1%;
+  top: -1%;
+  z-index: -2;
+}
+
+.student {
+  display: flex;
+  padding: .75rem 0;
+  height: fit-content;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  padding: 1rem;
+}
+
+.studentImg {
+  display: flex;
+  margin-right: 2rem;
+}
+
+.studentImg img {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  border: 1px solid gray;
+}
+
+.studentData {
+  width: 100%;
+}
+
+.studentData h1 {
+  font-size: 2rem;
+  margin-bottom: .75rem;
+}
+
+.studentDetails {
+  margin-left: 1rem;
+  line-height: 1.5;
+  width: fit-content;
+}
+
+.search {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid gray;
+  padding: .50rem 0 .50rem 0;
+  margin: .50rem;
+  background: none;
+  width: 98%;
+  font-size: 1rem;
+}
+
+.search:focus {
+  border-bottom: 2px solid black;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.expanded {
+  margin: .75rem 0 .75rem 0;
+  overflow: hidden;
+  transition: all .3s ease-in-out;
+  height: 0;
+}
+
+.slideDown {
+  height: 200px;
+}
+
+.expandBtn {
+  background: none;
+  border: none;
+  color: gray;
+  cursor: pointer;
+  transition: .1s;
+}
+
+
+.expandBtn:hover {
+  color: black;
+  transition: .2s;
+}
+
+.expandBtn:active {
+  color: rgb(85, 85, 85);
+  transition: .1s;
+}
+
+.tagList {
+  display: flex;
+  gap: .5rem
+}
+
+.tag {
+  background-color: rgb(207, 207, 207);
+  width: fit-content;
+  padding: .55rem;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+
+}
+
+.tag h4 {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.tag:hover .closeBtn {
+  display: block;
+}
+
+.closeBtn {
+  display: none;
+  position: absolute;
+  top: -1px;
+  right: 3px;
+  font-size: .7rem;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  color: red;
+  text-shadow: 2px 1px 1px 2px white;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid rgb(228, 228, 228);
+  border-color: rgb(228, 228, 228) transparent rgb(228, 228, 228) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+.loading-spinner__overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes lds-dual-ring {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
